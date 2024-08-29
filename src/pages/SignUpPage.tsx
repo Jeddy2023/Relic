@@ -17,7 +17,7 @@ const SignupPage: React.FC<Props> = ({ }) => {
     const [transparentButton, setTransparentButton] = useState<string | null>(null);
     const [showConfetti, setShowConfetti] = useState<boolean>(false);
     const navigate = useNavigate();
-    const [active, setActive] = useState<number>(2);
+    const [active, setActive] = useState<number>(0);
 
     const handleUserTypeSelect = (type: UserType) => {
         setUserType(type);

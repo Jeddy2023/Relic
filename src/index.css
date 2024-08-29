@@ -18,6 +18,10 @@
   list-style: none;
 }
 
+body{
+  overflow-x: hidden !important;
+}
+
 html {
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
@@ -33,4 +37,8 @@ html {
 
 .center-margin {
   margin: 0 auto;
+}
+
+.transparent_background:hover{
+  background-color: transparent !important;
 }

@@ -10,7 +10,7 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({ name }) => {
   const pathnames = location.pathname.split('/').filter((x) => x);
 
   return (
-    <div className="w-full h-36 mb-5 px-6 bg-gray-100 dark:bg-[#0e0e0ec1] flex flex-col justify-center relative overflow-hidden rounded-tl-lg rounded-br-lg">
+    <div className="w-full h-36 mb-5 px-6 bg-gray-100 dark:bg-[#0e0e0ec1] flex flex-col justify-center relative overflow-hidden">
       <h1 className="font-saira text-3xl mb-2 font-semibold dark:text-white">{name}</h1>
       <p className="text-sm">
         <Link to="/" className="hover:underline text-gray-600 dark:text-gray-300">Home</Link>
