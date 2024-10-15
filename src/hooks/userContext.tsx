@@ -3,8 +3,9 @@ import Cookies from 'js-cookie';
 import { User } from "../utils/types";
 
 interface LoginData {
-    token: string;
+    accessToken: string;
     user: User;
+    expiresIn: number;
 }
 
 interface UserContextType {
@@ -24,7 +25,7 @@ export const UserContext = createContext<UserContextType>({
     user: null,
     login: () => { },
     logout: () => { },
-    loading: true
+    loading: true,
 });
 
 const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
@@ -43,18 +44,19 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }, []);
 
     const login = (data: LoginData) => {
-        const { token, user } = data;
-        setAccessToken(token);
+        const { accessToken, user, expiresIn } = data;
+        setAccessToken(accessToken);
         setUser(user);
+        const expirationDate = new Date(new Date().getTime() + expiresIn);
 
-        Cookies.set('accessToken', token, {
-            expires: 7,
+        Cookies.set('accessToken', accessToken, {
+            expires: expirationDate,
             secure: true,
             sameSite: 'Strict'
         });
 
         Cookies.set('userData', JSON.stringify(user), {
-            expires: 7,
+            expires: expirationDate,
             secure: true,
             sameSite: 'Strict'
         });

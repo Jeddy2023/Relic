@@ -5,13 +5,14 @@ export enum Gender {
 }
 
 export interface User {
+    id: number
     firstName: string;
-    lastName: string;
+    username: string;
     email: string;
-    gender: string;
-    isAdmin: boolean;
+    role: string;
+    isBlocked: boolean
     isVerified: boolean;
-    isTokenized: boolean
+    shopname: string
 }
 
 export interface Product {

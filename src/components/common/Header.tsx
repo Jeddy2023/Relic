@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ActionIcon, Button, Flex, Stack } from '@mantine/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -7,11 +7,14 @@ import { GoBell } from 'react-icons/go';
 import Logo from '../../assets/images/logo.png';
 import { HiMenuAlt3 } from 'react-icons/hi';
 import ThemeSwitcher from './ThemeSwitcher';
+import SignInModal from '../features/SignInModal';
+import { UserContext } from '../../hooks/userContext';
 
 type Props = {};
 
 const Header: React.FC<Props> = () => {
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState<boolean>(false);
+  const { accessToken } = useContext(UserContext);
 
   const handleClose = (e: any) => {
     if (e.target.id === "screen") {
@@ -52,14 +55,14 @@ const Header: React.FC<Props> = () => {
       </div>
 
       <Flex align="center" gap={5} className="hidden md:flex">
-        <Link to="/register">
-          <Button color={'#48bb78'} className="hover:bg-bg-general dark:hover:bg-bg-general-dark transition duration-300">
-            Sign up
-          </Button>
-        </Link>
-        <Button color={'#48bb78'} variant="outline" className="transition duration-300">
-          Sign in
-        </Button>
+        {!accessToken && <Flex gap={5}>
+          <Link to="/register">
+            <Button color={'#48bb78'} className="hover:bg-bg-general dark:hover:bg-bg-general-dark transition duration-300">
+              Sign up
+            </Button>
+          </Link>
+          <SignInModal />
+        </Flex>}
         <ActionIcon bg='transparent' className="">
           <ThemeSwitcher />
         </ActionIcon>
@@ -81,7 +84,7 @@ const Header: React.FC<Props> = () => {
         openSidebar && (
           <div className="fixed w-[50%] h-screen top-0 right-0 z-[99999] bg-[whitesmoke] dark:bg-[#0e0e0ef6] pt-16 pl-[7%]" onClick={handleClose} id='screen'>
             <Stack gap="md" className='relative'>
-              
+
               <Link to="/" className="font-medium text-gray-800 dark:text-gray-200 hover:text-bg-general dark:hover:text-gray-400 transition duration-300">
                 <h2>Home</h2>
               </Link>

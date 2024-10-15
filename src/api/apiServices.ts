@@ -2,7 +2,7 @@ import { Category, Product } from "../utils/types";
 import { api } from "./axios";
 
 export const fetchProducts = async (queryString: string): Promise<{ products: Product[], totalPages: number, totalResults: number }> => {
-    const url = `/auction/all${queryString}`;
+    const url = `/auctions/all${queryString}`;
     const response = await api.get(url);
     return {
         products: response.data.content || [],

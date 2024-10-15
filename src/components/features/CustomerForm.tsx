@@ -31,17 +31,16 @@ const CustomerForm: React.FC<Props> = ({ prevStep, nextStep }) => {
     const registerCustomer = async (data: CustomerFormData) => {
         setLoading(true);
         setError(null);
-        console.log(data)
         try {
             const response = await api.post('/auth/register/customer', data);
             const verificationToken: string = response?.data?.verificationToken;
             Cookies.set('verificationTokenRelic', verificationToken);
             toast.success(response.data.message || 'Registration successful!');
-            reset();
             nextStep();
+            reset();
         } catch (err: any) {
             console.log(err)
-            const errorMessage = err.response?.data?.errors[0] || err.response?.data?.message || 'Registration failed. Please try again.';
+            const errorMessage = err.response?.data?.message || err.response?.data?.errors[0] || 'Registration failed. Please try again.';
             toast.error(errorMessage);
             setError(errorMessage);
         } finally {

@@ -37,3 +37,7 @@ export const useTheme = (): ThemeContextType => {
   }
   return context;
 };
+
+export const getCurrentTheme = (): 'light' | 'dark' => {
+  return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
+};

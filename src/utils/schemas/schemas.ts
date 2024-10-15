@@ -30,7 +30,7 @@ export type CustomerFormData = {
     password: string;
     firstname: string;
     lastname: string;
-    role:string;
+    role: string;
     phonenumber: string;
 };
 
@@ -44,4 +44,14 @@ export const customerSchema: ZodSchema<CustomerFormData> = z.object({
     lastname: z.string().trim().min(1, 'Last name is required'),
     role: z.string().trim().min(1, 'Role is required'),
     phonenumber: z.string().regex(/^\d{10,15}$/, 'Phone number must be between 10 and 15 digits')
+});
+
+export type SignInFormData = z.infer<typeof signInSchema>;
+
+export const signInSchema = z.object({
+    email: z.string().email('Invalid email address'),
+    password: z.string()
+        .min(5, { message: "Password must contain at least 5 characters" })
+        .max(16, { message: "Password should be less than 16 characters" })
+        .refine(value => /^(?=.*[A-Z])(?=.*[\W_]).{5,}$/.test(value), { message: "Password must contain at least one uppercase letter and one symbol" }),
 });

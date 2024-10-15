@@ -10,6 +10,7 @@ import SignupPage from "./pages/SignUpPage";
 import AuctionsPage from "./pages/AuctionsPage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
+import AuctionDetailsPage from "./pages/AuctionDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <LandingPage /> },
       { path:"auctions", element: <AuctionsPage/>},
+      { path: "auctions/:id", element: <AuctionDetailsPage/>},
       { path:"contact", element: <ContactPage/>},
       { path:"about", element: <AboutPage />},
     ],

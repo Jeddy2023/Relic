@@ -2,6 +2,14 @@ import { fetchProducts } from "../api/apiServices";
 import { buildQueryString } from "./utils";
 import toast from 'react-hot-toast';
 
+export interface ApiError {
+    response: {
+        data: {
+            message: string;
+        };
+    };
+}
+
 export const getProducts = async (
     filters: {
         categoryId: number | null;
@@ -40,8 +48,9 @@ export const getProducts = async (
         setTotalPages(totalPages);
         setTotalResults(totalResults);
     } catch (error) {
+        const err = error as ApiError
         console.error(error);
-        toast.error('An error occurred while getting auctions');
+        toast.error(err.response?.data?.message || 'An error occurred while getting auctions');
     } finally {
         setIsLoading(false);
     }
